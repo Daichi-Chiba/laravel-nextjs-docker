@@ -12,23 +12,31 @@
     "prepare": "husky install",
     "logs": "docker compose logs -f frontend",
     "lint:staged": "lint-staged",
+    "precommit:secrets": "secretlint '**/*' --ignore 'node_modules'",
+    "precommit:typecheck": "cd frontend && npx tsc --noEmit",
     "lint:fix": "npm run lint:staged"
   },
   "devDependencies": {
+    "@secretlint/secretlint-rule-preset-recommend": "^11.2.5",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "secretlint": "^11.2.5"
   },
   "lint-staged": {
     "frontend/**/*.{js,jsx,ts,tsx}": [
-      "npm --prefix frontend run lint:fix",
-      "npm --prefix frontend run format"
+      "npm --prefix frontend run lint:fix --",
+      "npm --prefix frontend run format --",
+      "npm --prefix frontend run test:staged --"
     ],
     "backend/**/*.php": [
-      "cd backend && vendor/bin/php-cs-fixer fix --diff --path-mode=intersection"
+      "./vendor/bin/pint"
     ],
-    "*.{json,css,scss,md}": [
+    "**/*.{json,yaml,md,css,scss,js,ts}": [
       "prettier --write"
+    ],
+    "!node_modules/**": [
+      "echo 'Ignoring node_modules files...'"
     ]
   }
 }
