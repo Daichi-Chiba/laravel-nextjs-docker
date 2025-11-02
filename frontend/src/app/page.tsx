@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -15,35 +16,51 @@ export default function Home() {
         />
         <div className={styles.intro}>
           <h1>✅ Next.js ホットリロード成功！</h1>
-          <p>
-            🎉 リアルタイムで変更が反映されています！{" "}
-          </p>
+          <p>🎉 リアルタイムで変更が反映されています！ </p>
+
+          <div
+            style={{
+              marginTop: "2rem",
+              display: "flex",
+              gap: "1rem",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <Link
+              href="/login"
+              style={{
+                padding: "0.75rem 1.5rem",
+                backgroundColor: "#0070f3",
+                color: "#fff",
+                borderRadius: "8px",
+                textDecoration: "none",
+                fontWeight: "500",
+                display: "inline-block",
+                transition: "background-color 0.2s",
+              }}
+            >
+              🔐 ログイン
+            </Link>
+
+            <Link
+              href="/register"
+              style={{
+                padding: "0.75rem 1.5rem",
+                backgroundColor: "#fff",
+                color: "#0070f3",
+                border: "2px solid #0070f3",
+                borderRadius: "8px",
+                textDecoration: "none",
+                fontWeight: "500",
+                display: "inline-block",
+                transition: "background-color 0.2s",
+              }}
+            >
+              👤 会員登録
+            </Link>
+          </div>
         </div>
-        {/* <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div> */}
       </main>
     </div>
   );
