@@ -55,8 +55,10 @@ export default function RegisterPage() {
 
       // ホームページにリダイレクト
       router.push("/");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : "不明なエラーが発生しました";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -248,7 +250,11 @@ export default function RegisterPage() {
           すでにアカウントをお持ちの方は
           <Link
             href="/login"
-            style={{ color: "#0070f3", textDecoration: "none", marginLeft: "0.5rem" }}
+            style={{
+              color: "#0070f3",
+              textDecoration: "none",
+              marginLeft: "0.5rem",
+            }}
           >
             ログイン
           </Link>
@@ -257,7 +263,11 @@ export default function RegisterPage() {
         <div style={{ marginTop: "1rem", textAlign: "center" }}>
           <Link
             href="/"
-            style={{ color: "#666", textDecoration: "none", fontSize: "0.9rem" }}
+            style={{
+              color: "#666",
+              textDecoration: "none",
+              fontSize: "0.9rem",
+            }}
           >
             ← ホームに戻る
           </Link>
@@ -266,4 +276,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

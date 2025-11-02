@@ -28,7 +28,7 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "ログインに失敗しました");
+        throw new Error(data.message || "ログインができませんでした");
       }
 
       // トークンをローカルストレージに保存
@@ -37,9 +37,10 @@ export default function LoginPage() {
 
       // ホームページにリダイレクト
       router.push("/");
-    } catch (err: any) {
-      // eslint-disable-line @typescript-eslint/no-explicit-any
-      setError(err.message);
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : "不明なエラーが発生しました";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
