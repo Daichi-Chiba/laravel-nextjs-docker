@@ -1,13 +1,46 @@
+/* :root はライトモードのデフォルトスタイルです */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-sans: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  --font-mono: 'Menlo', 'Monaco', 'Courier New', monospace;
+
+  /* 色: 意味的な名前 */
+  --color-background: #ffffff;
+  --color-foreground: #111827; /* テキスト基本色 */
+  --color-muted-foreground: #6b7280; /* 補助的なテキスト色 */
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f3f4f6;
+  --color-secondary-foreground: #1f2937;
+  --color-accent: #10b981;
+  --color-accent-foreground: #ffffff;
+  --color-border: #e5e7eb;
+  --color-card: #ffffff;
+  --color-card-foreground: #111827;
+
+  /* その他 */
+  --radius: 0.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* [data-theme='dark'] 属性を持つ要素以下にダークモードのスタイルを適用します */
+[data-theme='dark'] {
+  --color-background: #030712;
+  --color-foreground: #f9fafb;
+  --color-muted-foreground: #9ca3af;
+  --color-primary: #60a5fa;
+  --color-primary-foreground: #030712;
+  --color-secondary: #1f2937;
+  --color-secondary-foreground: #f9fafb;
+  --color-accent: #34d399;
+  --color-accent-foreground: #030712;
+  --color-border: #374151;
+  --color-card: #1f2937;
+  --color-card-foreground: #f9fafb;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
@@ -17,26 +50,14 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-foreground);
+  background: var(--color-background);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
