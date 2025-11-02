@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite; // Socialiteをインポート
+use Illuminate\Support\Str; // Strをインポート
 
 class AuthController extends Controller
 {
@@ -65,6 +67,55 @@ class AuthController extends Controller
     }
 
     /**
+     * GitHub認証ページへリダイレクト
+     */
+    public function redirectToProvider()
+    {
+        session()->forget('state'); // Socialiteのstateパラメータを明示的に無視
+        return Socialite::driver('github')->stateless()->redirect();
+    }
+
+    /**
+     * GitHubからのコールバックを処理
+     */
+    public function handleProviderCallback()
+    {
+        try {
+            $githubUser = Socialite::driver('github')->user();
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'GitHub認証に失敗しました。'], 500);
+        }
+
+        $user = User::where('github_id', $githubUser->getId())
+                    ->orWhere('email', $githubUser->getEmail())
+                    ->first();
+
+        if ($user) {
+            // 既存ユーザーの場合
+            if (empty($user->github_id)) {
+                $user->github_id = $githubUser->getId();
+                $user->save();
+            }
+        } else {
+            // 新規ユーザーの場合
+            $user = User::create([
+                'name' => $githubUser->getName() ?? $githubUser->getNickname(),
+                'email' => $githubUser->getEmail(),
+                'github_id' => $githubUser->getId(),
+                'password' => Hash::make(Str::random(24)), // パスワードはランダム生成
+            ]);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
+    /**
      * ログアウト
      */
     public function logout(Request $request)
@@ -84,4 +135,3 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 }
-

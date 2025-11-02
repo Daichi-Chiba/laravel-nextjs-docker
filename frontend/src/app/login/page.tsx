@@ -50,6 +50,10 @@ export default function LoginPage() {
     }
   };
 
+  const handleGithubLogin = () => {
+    window.location.href = "http://localhost:8000/api/auth/github/redirect";
+  };
+
   return (
     <div className={styles.loginPage}>
       <Card className={styles.loginPage__card}>
@@ -96,6 +100,12 @@ export default function LoginPage() {
               {loading ? "ログイン中..." : "ログイン"}
             </Button>
           </form>
+
+          <div className={styles.loginPage__divider}>または</div>
+
+          <Button variant="secondary" onClick={handleGithubLogin} className={styles.loginPage__githubButton}>
+            GitHubでログイン
+          </Button>
 
           <p className={styles.loginPage__registerLink}>
             アカウントをお持ちでない方は

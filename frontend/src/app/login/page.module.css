@@ -72,3 +72,33 @@
 .loginPage__homeLink:hover {
   text-decoration: underline;
 }
+
+.loginPage__divider {
+  margin: 1.5rem 0;
+  text-align: center;
+  position: relative;
+  color: var(--color-muted-foreground);
+}
+
+.loginPage__divider::before,
+.loginPage__divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.loginPage__divider::before {
+  left: 0;
+}
+
+.loginPage__divider::after {
+  right: 0;
+}
+
+.loginPage__githubButton {
+  width: 100%;
+  margin-bottom: 1rem;
+}
