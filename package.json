@@ -17,7 +17,8 @@
     "lint:fix": "npm run lint:staged",
     "test:all": "echo 'Running full test suite... (Implement your test command here)'",
     "build:frontend": "echo 'Validating Next.js build...' && cd frontend && npm run build",
-    "prepush:check": "npm run precommit:typecheck && npm run build:frontend"
+    "prepush:check": "npm run precommit:typecheck && npm run build:frontend",
+    "postmerge:setup": "echo 'Post-Merge Setup: Installing dependencies...' && npm install && cd frontend && npm install"
   },
   "devDependencies": {
     "@secretlint/secretlint-rule-preset-recommend": "^11.2.5",
