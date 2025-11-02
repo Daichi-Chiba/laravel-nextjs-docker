@@ -9,6 +9,22 @@
     "start": "docker compose up -d",
     "stop": "docker compose down",
     "restart": "docker compose restart",
+    "prepare": "husky install",
     "logs": "docker compose logs -f frontend"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
