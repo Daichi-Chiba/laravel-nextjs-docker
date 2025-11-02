@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class PostTest extends TestCase
+class TagTest extends TestCase
 {
     /**
      * A basic unit test example.
@@ -17,12 +17,12 @@ class PostTest extends TestCase
     /**
      * 基本的な機能テスト
      */
-    public function test_can_create_post()
+    public function test_can_create_tag()
     {
         $data = [
             // TODO: モデルの属性を定義
         ];
-        $Post = Post::create($data);
-        $this->assertInstanceOf(Post::class, $Post);
+        $Tag = Tag::create($data);
+        $this->assertInstanceOf(Tag::class, $Tag);
     }
 }

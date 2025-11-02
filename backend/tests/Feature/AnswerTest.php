@@ -5,9 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Post;
+use App\Models\Answer;
 
-class PostTest extends TestCase
+class AnswerTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -22,12 +22,12 @@ class PostTest extends TestCase
     /**
      * 基本的な機能テスト
      */
-    public function test_can_create_post()
+    public function test_can_create_answer()
     {
         $data = [
             // TODO: モデルの属性を定義
         ];
-        $Post = Post::create($data);
-        $this->assertInstanceOf(Post::class, $Post);
+        $Answer = Answer::create($data);
+        $this->assertInstanceOf(Answer::class, $Answer);
     }
 }

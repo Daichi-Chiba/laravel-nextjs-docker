@@ -5,9 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Post;
+use App\Models\Tag;
 
-class PostTest extends TestCase
+class TagTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -22,12 +22,12 @@ class PostTest extends TestCase
     /**
      * 基本的な機能テスト
      */
-    public function test_can_create_post()
+    public function test_can_create_tag()
     {
         $data = [
             // TODO: モデルの属性を定義
         ];
-        $Post = Post::create($data);
-        $this->assertInstanceOf(Post::class, $Post);
+        $Tag = Tag::create($data);
+        $this->assertInstanceOf(Tag::class, $Tag);
     }
 }
