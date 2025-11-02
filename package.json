@@ -14,7 +14,10 @@
     "lint:staged": "lint-staged",
     "precommit:secrets": "secretlint '**/*' --ignore 'node_modules'",
     "precommit:typecheck": "cd frontend && npx tsc --noEmit",
-    "lint:fix": "npm run lint:staged"
+    "lint:fix": "npm run lint:staged",
+    "test:all": "echo 'Running full test suite... (Implement your test command here)'",
+    "build:frontend": "echo 'Validating Next.js build...' && cd frontend && npm run build",
+    "prepush:check": "npm run precommit:typecheck && npm run build:frontend"
   },
   "devDependencies": {
     "@secretlint/secretlint-rule-preset-recommend": "^11.2.5",
@@ -32,11 +35,8 @@
     "backend/**/*.php": [
       "./vendor/bin/pint"
     ],
-    "**/*.{json,yaml,md,css,scss,js,ts}": [
+    "{*.{json,yaml,md,css,scss,js,ts},backend/**/*.{json,yaml,md,css,scss,js,ts}}": [
       "prettier --write"
-    ],
-    "!node_modules/**": [
-      "echo 'Ignoring node_modules files...'"
     ]
   }
 }
