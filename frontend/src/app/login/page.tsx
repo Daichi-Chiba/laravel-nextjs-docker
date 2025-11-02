@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader } from '@/components/Card/Card';
 import { Input } from '@/components/Input/Input';
 import { Button } from '@/components/Button/Button';
 import styles from './page.module.css';
+import api from '@/lib/axios'; // apiをインポート
+import { useAuth } from '@/contexts/AuthContext'; // useAuthをインポート
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -14,6 +16,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { login } = useAuth(); // login関数を取得
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,37 +24,27 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await api.post("/login", { email, password });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "ログインができませんでした");
-      }
-
-      // トークンをローカルストレージに保存
-      localStorage.setItem("access_token", data.access_token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      // 認証状態を更新
+      login(response.data.access_token, response.data.user);
 
       // ホームページにリダイレクト
       router.push("/");
-    } catch (err: unknown) {
-      const errorMessage =
-        err instanceof Error ? err.message : "不明なエラーが発生しました";
-      setError(errorMessage);
+    } catch (err: any) {
+      setError(err.response?.data?.message || "不明なエラーが発生しました");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleGithubLogin = () => {
-    window.location.href = "http://localhost:8000/api/auth/github/redirect";
+  const handleGithubLogin = async () => {
+    try {
+      const response = await api.get("/auth/github/redirect");
+      window.location.href = response.data.redirect_url;
+    } catch (err: any) {
+      setError(err.response?.data?.message || "GitHubログインに失敗しました");
+    }
   };
 
   return (

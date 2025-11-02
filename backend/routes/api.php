@@ -21,5 +21,6 @@ Route::get('auth/github/callback', [AuthController::class, 'handleProviderCallba
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::post('/posts', [PostController::class, 'store']); // 質問投稿ルートを追加
 });
 

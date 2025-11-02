@@ -29,6 +29,9 @@ export const Header = () => {
               <Link href="/questions" className={styles.header__navLink}>質問</Link>
             </li>
             <li className={styles.header__navItem}>
+              <Link href="/questions/create" className={styles.header__navLink}>質問する</Link>
+            </li>
+            <li className={styles.header__navItem}>
               <Link href="/tags" className={styles.header__navLink}>タグ</Link>
             </li>
             <li className={styles.header__navItem}>

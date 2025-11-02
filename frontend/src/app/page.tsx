@@ -1,8 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/Button/Button';
 
 export default function Home() {
+  const { isAuthenticated, user, logout } = useAuth();
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -15,51 +21,33 @@ export default function Home() {
           priority
         />
         <div className={styles.intro}>
-          <h1>✅ Next.js ホットリロード成功！</h1>
-          <p>🎉 リアルタイムで変更が反映されています！ </p>
+          {isAuthenticated ? (
+            <div className={styles.loggedInContent}>
+              <h1>ようこそ、{user?.name}さん！</h1>
+              <p>質問をしたり、他の人の質問に答えたりしましょう。</p>
+              <div className={styles.actionButtons}>
+                <Link href="/questions/create" passHref>
+                  <Button variant="primary">質問を投稿する</Button>
+                </Link>
+                <Button variant="secondary" onClick={logout}>ログアウト</Button>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.loggedOutContent}>
+              <h1>✅ Next.js ホットリロード成功！</h1>
+              <p>🎉 リアルタイムで変更が反映されています！ </p>
 
-          <div
-            style={{
-              marginTop: "2rem",
-              display: "flex",
-              gap: "1rem",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Link
-              href="/login"
-              style={{
-                padding: "0.75rem 1.5rem",
-                backgroundColor: "#0070f3",
-                color: "#fff",
-                borderRadius: "8px",
-                textDecoration: "none",
-                fontWeight: "500",
-                display: "inline-block",
-                transition: "background-color 0.2s",
-              }}
-            >
-              🔐 ログイン
-            </Link>
+              <div className={styles.actionButtons}>
+                <Link href="/login" passHref>
+                  <Button variant="primary">🔐 ログイン</Button>
+                </Link>
 
-            <Link
-              href="/register"
-              style={{
-                padding: "0.75rem 1.5rem",
-                backgroundColor: "#fff",
-                color: "#0070f3",
-                border: "2px solid #0070f3",
-                borderRadius: "8px",
-                textDecoration: "none",
-                fontWeight: "500",
-                display: "inline-block",
-                transition: "background-color 0.2s",
-              }}
-            >
-              👤 会員登録
-            </Link>
-          </div>
+                <Link href="/register" passHref>
+                  <Button variant="secondary">👤 会員登録</Button>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
