@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 # パッケージファイルをコピーしてインストール
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 # アプリケーションのファイルをコピー
 COPY . .

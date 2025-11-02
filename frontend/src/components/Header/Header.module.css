@@ -64,3 +64,73 @@
 .header__actionButton:hover {
   background-color: var(--color-primary-dark);
 }
+
+.header__mobileMenuButton {
+  display: none; /* デフォルトでは非表示 */
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-foreground);
+}
+
+@media (max-width: 768px) {
+  .header__nav {
+    display: none; /* モバイルではナビゲーションを非表示 */
+  }
+
+  .header__actions {
+    display: none; /* モバイルではアクションボタンを非表示 */
+  }
+
+  .header__mobileMenuButton {
+    display: block; /* モバイルでハンバーガーメニューを表示 */
+  }
+
+  .header__mobileNav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* ヘッダーの高さに合わせて調整 */
+    left: 0;
+    width: 100%;
+    background-color: var(--color-card);
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .header__mobileNav--open {
+    display: flex;
+  }
+
+  .header__mobileNavItem {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .header__mobileNavItem:last-child {
+    border-bottom: none;
+  }
+
+  .header__mobileNavLink {
+    display: block;
+    color: var(--color-foreground);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0;
+  }
+
+  .header__mobileNavLink:hover {
+    color: var(--color-primary);
+  }
+
+  .header__mobileActions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+}

@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Card, CardContent, CardHeader } from '@/components/Card/Card';
+import { Input } from '@/components/Input/Input';
+import { Button } from '@/components/Button/Button';
+import styles from './page.module.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -47,156 +51,64 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#f5f5f5",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "2rem",
-          borderRadius: "8px",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          width: "100%",
-          maxWidth: "400px",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "2rem",
-            marginBottom: "1.5rem",
-            textAlign: "center",
-            color: "#333",
-          }}
-        >
-          🔐 ログイン
-        </h1>
+    <div className={styles.loginPage}>
+      <Card className={styles.loginPage__card}>
+        <CardHeader>
+          <h1 className={styles.loginPage__title}>🔐 ログイン</h1>
+        </CardHeader>
+        <CardContent>
+          {error && (
+            <div className={styles.loginPage__error}>
+              {error}
+            </div>
+          )}
 
-        {error && (
-          <div
-            style={{
-              backgroundColor: "#fee",
-              color: "#c33",
-              padding: "1rem",
-              borderRadius: "4px",
-              marginBottom: "1rem",
-            }}
-          >
-            {error}
-          </div>
-        )}
+          <form onSubmit={handleSubmit}>
+            <div className={styles.loginPage__formGroup}>
+              <label htmlFor="email" className={styles.loginPage__label}>
+                メールアドレス
+              </label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={styles.loginPage__input}
+              />
+            </div>
 
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "1rem" }}>
-            <label
-              htmlFor="email"
-              style={{
-                display: "block",
-                marginBottom: "0.5rem",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              メールアドレス
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                border: "1px solid #ddd",
-                borderRadius: "4px",
-                fontSize: "1rem",
-                boxSizing: "border-box",
-              }}
-            />
-          </div>
+            <div className={styles.loginPage__formGroup}>
+              <label htmlFor="password" className={styles.loginPage__label}>
+                パスワード
+              </label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className={styles.loginPage__input}
+              />
+            </div>
 
-          <div style={{ marginBottom: "1.5rem" }}>
-            <label
-              htmlFor="password"
-              style={{
-                display: "block",
-                marginBottom: "0.5rem",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              パスワード
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                border: "1px solid #ddd",
-                borderRadius: "4px",
-                fontSize: "1rem",
-                boxSizing: "border-box",
-              }}
-            />
-          </div>
+            <Button type="submit" variant="primary" disabled={loading} className={styles.loginPage__button}>
+              {loading ? "ログイン中..." : "ログイン"}
+            </Button>
+          </form>
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "0.75rem",
-              backgroundColor: loading ? "#ccc" : "#0070f3",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              fontSize: "1rem",
-              fontWeight: "500",
-              cursor: loading ? "not-allowed" : "pointer",
-              marginBottom: "1rem",
-            }}
-          >
-            {loading ? "ログイン中..." : "ログイン"}
-          </button>
-        </form>
+          <p className={styles.loginPage__registerLink}>
+            アカウントをお持ちでない方は
+            <Link href="/register">
+              会員登録
+            </Link>
+          </p>
 
-        <p style={{ textAlign: "center", color: "#666" }}>
-          アカウントをお持ちでない方は
-          <Link
-            href="/register"
-            style={{
-              color: "#0070f3",
-              textDecoration: "none",
-              marginLeft: "0.5rem",
-            }}
-          >
-            会員登録
-          </Link>
-        </p>
-
-        <div style={{ marginTop: "1rem", textAlign: "center" }}>
-          <Link
-            href="/"
-            style={{
-              color: "#666",
-              textDecoration: "none",
-              fontSize: "0.9rem",
-            }}
-          >
+          <Link href="/" className={styles.loginPage__homeLink}>
             ← ホームに戻る
           </Link>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

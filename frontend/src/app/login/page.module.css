@@ -1,0 +1,74 @@
+.loginPage {
+  min-height: calc(100vh - 60px); /* ヘッダーの高さ分を引く */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: var(--color-background);
+}
+
+.loginPage__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loginPage__title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-foreground);
+}
+
+.loginPage__formGroup {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.loginPage__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+.loginPage__input {
+  margin-bottom: 1.5rem; /* Inputコンポーネントのデフォルトマージンを上書き */
+}
+
+.loginPage__button {
+  margin-top: 1rem;
+}
+
+.loginPage__error {
+  background-color: #fee2e2; /* 赤系の背景 */
+  color: #ef4444; /* 赤系のテキスト */
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.loginPage__registerLink {
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--color-muted-foreground);
+}
+
+.loginPage__registerLink a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.loginPage__homeLink {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+}
+
+.loginPage__homeLink:hover {
+  text-decoration: underline;
+}

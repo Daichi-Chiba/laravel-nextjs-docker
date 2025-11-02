@@ -1,0 +1,53 @@
+/* Block */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* --- Modifiers --- */
+
+/* Variant */
+.button--primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-color: var(--color-primary);
+}
+
+.button--primary:hover {
+  opacity: 0.9;
+}
+
+.button--secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+  border-color: var(--color-border);
+}
+
+.button--secondary:hover {
+  background-color: var(--color-border);
+}
+
+/* Disabled */
+.button--disabled {
+  background-color: var(--color-secondary);
+  color: var(--color-muted-foreground);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* --- Element --- */
+.button__icon {
+  margin-right: 0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
