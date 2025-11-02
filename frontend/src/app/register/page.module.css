@@ -1,0 +1,74 @@
+.registerPage {
+  min-height: calc(100vh - 60px); /* ヘッダーの高さ分を引く */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: var(--color-background);
+}
+
+.registerPage__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.registerPage__title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-foreground);
+}
+
+.registerPage__formGroup {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.registerPage__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+.registerPage__input {
+  margin-bottom: 1.5rem; /* Inputコンポーネントのデフォルトマージンを上書き */
+}
+
+.registerPage__button {
+  margin-top: 1rem;
+}
+
+.registerPage__error {
+  background-color: #fee2e2; /* 赤系の背景 */
+  color: #ef4444; /* 赤系のテキスト */
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.registerPage__loginLink {
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--color-muted-foreground);
+}
+
+.registerPage__loginLink a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.registerPage__homeLink {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+}
+
+.registerPage__homeLink:hover {
+  text-decoration: underline;
+}

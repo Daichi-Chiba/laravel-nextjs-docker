@@ -4,9 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
 import clsx from 'clsx';
+import { useAuth } from '@/contexts/AuthContext'; // useAuthフックをインポート
+import { Button } from '@/components/Button/Button'; // Buttonコンポーネントをインポート
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth(); // 認証状態を取得
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -36,8 +39,17 @@ export const Header = () => {
 
         {/* PC用アクションボタン */}
         <div className={styles.header__actions}>
-          <Link href="/login" className={styles.header__actionButton}>ログイン</Link>
-          <Link href="/register" className={styles.header__actionButton}>登録</Link>
+          {isAuthenticated ? (
+            <>
+              <span className={styles.header__userName}>{user?.name}</span>
+              <Button variant="secondary" onClick={logout}>ログアウト</Button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className={styles.header__actionButton}>ログイン</Link>
+              <Link href="/register" className={styles.header__actionButton}>登録</Link>
+            </>
+          )}
         </div>
 
         {/* モバイル用ハンバーガーメニューボタン */}
@@ -69,8 +81,17 @@ export const Header = () => {
             </li>
           </ul>
           <div className={styles.header__mobileActions}>
-            <Link href="/login" className={styles.header__actionButton} onClick={toggleMobileMenu}>ログイン</Link>
-            <Link href="/register" className={styles.header__actionButton} onClick={toggleMobileMenu}>登録</Link>
+            {isAuthenticated ? (
+              <>
+                <span className={styles.header__userName}>{user?.name}</span>
+                <Button variant="secondary" onClick={logout}>ログアウト</Button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className={styles.header__actionButton} onClick={toggleMobileMenu}>ログイン</Link>
+                <Link href="/register" className={styles.header__actionButton} onClick={toggleMobileMenu}>登録</Link>
+              </>
+            )}
           </div>
         </div>
       )}
