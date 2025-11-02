@@ -10,21 +10,25 @@
     "stop": "docker compose down",
     "restart": "docker compose restart",
     "prepare": "husky install",
-    "logs": "docker compose logs -f frontend"
+    "logs": "docker compose logs -f frontend",
+    "lint:staged": "lint-staged",
+    "lint:fix": "npm run lint:staged"
   },
   "devDependencies": {
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.6"
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "npm --prefix frontend run lint:fix",
+      "npm --prefix frontend run format"
+    ],
+    "backend/**/*.php": [
+      "cd backend && vendor/bin/php-cs-fixer fix --diff --path-mode=intersection"
     ],
     "*.{json,css,scss,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }
