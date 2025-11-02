@@ -15,7 +15,9 @@
     "precommit:secrets": "secretlint '**/*' --ignore 'node_modules'",
     "precommit:typecheck": "cd frontend && npx tsc --noEmit",
     "lint:fix": "npm run lint:staged",
-    "test:all": "echo 'Running full test suite... (Implement your test command here)'",
+    "test:frontend": "docker compose run --rm frontend npm test",
+    "test:backend": "docker compose run --rm backend php artisan test",
+    "test": "npm run test:frontend && npm run test:backend",
     "build:frontend": "echo 'Validating Next.js build...' && cd frontend && npm run build",
     "prepush:check": "npm run precommit:typecheck && npm run build:frontend",
     "postmerge:setup": "echo 'Post-Merge Setup: Installing dependencies...' && npm install && cd frontend && npm install"
@@ -28,7 +30,16 @@
     "secretlint": "^11.2.5"
   },
   "lint-staged": {
-    "frontend/**/*.{js,jsx,ts,tsx}": [
+    "frontend/src/**/*.{ts,tsx}": [
+      "node scripts/check-tests.mjs",
+      "npm --prefix frontend run lint:fix --",
+      "npm --prefix frontend run format --"
+    ],
+    "backend/app/**/*.php": [
+      "node scripts/check-tests.mjs",
+      "./vendor/bin/pint"
+    ],
+    "frontend/**/*.{js,jsx}": [
       "npm --prefix frontend run lint:fix --",
       "npm --prefix frontend run format --",
       "npm --prefix frontend run test:staged --"
