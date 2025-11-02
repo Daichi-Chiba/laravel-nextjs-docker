@@ -1,0 +1,14 @@
+{
+  "name": "laravel-nextjs-docker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "docker compose up -d",
+    "watch": "echo 'フロントエンドは docker compose up -d で起動済みです。変更は自動で反映されます！' && docker compose logs -f frontend",
+    "build": "docker compose exec frontend npm run build",
+    "start": "docker compose up -d",
+    "stop": "docker compose down",
+    "restart": "docker compose restart",
+    "logs": "docker compose logs -f frontend"
+  }
+}
