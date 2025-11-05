@@ -21,4 +21,13 @@ class Tag extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    /**
+     * Get the users that have subscribed to this tag.
+     */
+    public function subscribers()
+    {
+        return $this->belongsToMany(User::class, 'tag_subscriptions')
+            ->withTimestamps();
+    }
 }
