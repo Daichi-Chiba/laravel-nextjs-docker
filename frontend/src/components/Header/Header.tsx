@@ -3,101 +3,111 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
-import clsx from 'clsx';
-import { useAuth } from '@/contexts/AuthContext'; // useAuthフックをインポート
-import { Button } from '@/components/Button/Button'; // Buttonコンポーネントをインポート
+import { useAuth } from '@/contexts/AuthContext';
 
 export const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth(); // 認証状態を取得
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
     <header className={styles.header}>
-      <div className={styles.header__container}>
-        <Link href="/" className={styles.header__logo}>
-          T.S.O
+      <nav className={styles.nav}>
+        <Link href="/" className={styles.logo} onClick={closeMenu}>
+          Tech Stack Overflow
         </Link>
 
-        {/* PC用ナビゲーション */}
-        <nav className={styles.header__nav}>
-          <ul className={styles.header__navList}>
-            <li className={styles.header__navItem}>
-              <Link href="/questions" className={styles.header__navLink}>質問</Link>
-            </li>
-            <li className={styles.header__navItem}>
-              <Link href="/questions/create" className={styles.header__navLink}>質問する</Link>
-            </li>
-            <li className={styles.header__navItem}>
-              <Link href="/tags" className={styles.header__navLink}>タグ</Link>
-            </li>
-            <li className={styles.header__navItem}>
-              <Link href="/users" className={styles.header__navLink}>ユーザー</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* PC用アクションボタン */}
-        <div className={styles.header__actions}>
-          {isAuthenticated ? (
-            <>
-              <span className={styles.header__userName}>{user?.name}</span>
-              <Button variant="secondary" onClick={logout}>ログアウト</Button>
-            </>
-          ) : (
-            <>
-              <Link href="/login" className={styles.header__actionButton}>ログイン</Link>
-              <Link href="/register" className={styles.header__actionButton}>登録</Link>
-            </>
-          )}
-        </div>
-
-        {/* モバイル用ハンバーガーメニューボタン */}
-        <button className={styles.header__mobileMenuButton} onClick={toggleMobileMenu}>
-          {isMobileMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          )}
+        {/* ハンバーガーメニューボタン */}
+        <button 
+          className={styles.hamburger}
+          onClick={toggleMenu}
+          aria-label="メニュー"
+        >
+          <span className={isMenuOpen ? styles.hamburgerOpen : ''}></span>
+          <span className={isMenuOpen ? styles.hamburgerOpen : ''}></span>
+          <span className={isMenuOpen ? styles.hamburgerOpen : ''}></span>
         </button>
-      </div>
 
-      {/* モバイル用メニュー（開閉可能） */}
-      {isMobileMenuOpen && (
-        <div className={clsx(styles.header__mobileNav, isMobileMenuOpen && styles['header__mobileNav--open'])}>
-          <ul className={styles.header__mobileNavList}>
-            <li className={styles.header__mobileNavItem}>
-              <Link href="/questions" className={styles.header__mobileNavLink} onClick={toggleMobileMenu}>質問</Link>
-            </li>
-            <li className={styles.header__mobileNavItem}>
-              <Link href="/tags" className={styles.header__mobileNavLink} onClick={toggleMobileMenu}>タグ</Link>
-            </li>
-            <li className={styles.header__mobileNavItem}>
-              <Link href="/users" className={styles.header__mobileNavLink} onClick={toggleMobileMenu}>ユーザー</Link>
-            </li>
-          </ul>
-          <div className={styles.header__mobileActions}>
+        {/* ユーザー情報（常時表示） */}
+        {isAuthenticated && (
+          <div className={styles.userInfo}>
+            <span className={styles.userName}>{user?.name}</span>
+          </div>
+        )}
+
+        {/* スライドメニュー */}
+        <div className={`${styles.menu} ${isMenuOpen ? styles.menuOpen : ''}`}>
+          <div className={styles.menuHeader}>
+            <span className={styles.menuTitle}>メニュー</span>
+            <button className={styles.closeButton} onClick={closeMenu}>
+              ✕
+            </button>
+          </div>
+
+          <div className={styles.menuContent}>
+            <Link href="/questions" className={styles.menuLink} onClick={closeMenu}>
+              <span className={styles.menuIcon}>📋</span>
+              質問一覧
+            </Link>
+            <Link href="/questions/create" className={styles.menuLink} onClick={closeMenu}>
+              <span className={styles.menuIcon}>✏️</span>
+              質問を投稿
+            </Link>
+            <Link href="/tags" className={styles.menuLink} onClick={closeMenu}>
+              <span className={styles.menuIcon}>🏷️</span>
+              タグ
+            </Link>
+            <Link href="/users" className={styles.menuLink} onClick={closeMenu}>
+              <span className={styles.menuIcon}>👥</span>
+              ユーザー
+            </Link>
+
+            <div className={styles.menuDivider}></div>
+
             {isAuthenticated ? (
               <>
-                <span className={styles.header__userName}>{user?.name}</span>
-                <Button variant="secondary" onClick={logout}>ログアウト</Button>
+                <Link href="/profile" className={styles.menuLink} onClick={closeMenu}>
+                  <span className={styles.menuIcon}>👤</span>
+                  プロフィール
+                </Link>
+                <Link href="/bookmarks" className={styles.menuLink} onClick={closeMenu}>
+                  <span className={styles.menuIcon}>🔖</span>
+                  ブックマーク
+                </Link>
+                <Link href="/notifications" className={styles.menuLink} onClick={closeMenu}>
+                  <span className={styles.menuIcon}>🔔</span>
+                  通知
+                </Link>
+                <button className={styles.logoutButton} onClick={() => { logout(); closeMenu(); }}>
+                  <span className={styles.menuIcon}>🚪</span>
+                  ログアウト
+                </button>
               </>
             ) : (
               <>
-                <Link href="/login" className={styles.header__actionButton} onClick={toggleMobileMenu}>ログイン</Link>
-                <Link href="/register" className={styles.header__actionButton} onClick={toggleMobileMenu}>登録</Link>
+                <Link href="/login" className={styles.loginButton} onClick={closeMenu}>
+                  ログイン
+                </Link>
+                <Link href="/register" className={styles.registerButton} onClick={closeMenu}>
+                  新規登録
+                </Link>
               </>
             )}
           </div>
         </div>
-      )}
+
+        {/* オーバーレイ */}
+        {isMenuOpen && (
+          <div className={styles.overlay} onClick={closeMenu}></div>
+        )}
+      </nav>
     </header>
   );
 };
