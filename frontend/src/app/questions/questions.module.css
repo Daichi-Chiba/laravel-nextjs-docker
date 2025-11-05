@@ -1,0 +1,250 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.askButton {
+  background: var(--primary-color, #0070f3);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.askButton:hover {
+  background: var(--primary-hover, #0051cc);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color, #e1e4e8);
+}
+
+.stats {
+  font-size: 1.125rem;
+  color: var(--text-secondary, #586069);
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+}
+
+.filters a {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--text-primary, #24292e);
+  transition: background 0.2s;
+}
+
+.filters a:hover {
+  background: var(--hover-bg, #f6f8fa);
+}
+
+.filters a.active {
+  background: var(--primary-color, #0070f3);
+  color: white;
+}
+
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.questionCard {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--card-bg, white);
+  border: 1px solid var(--border-color, #e1e4e8);
+  border-radius: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.questionCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.questionCard .stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 100px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background: var(--stat-bg, #f6f8fa);
+}
+
+.stat.hasAnswers {
+  background: var(--success-bg, #dcffe4);
+  color: var(--success-color, #0e7c3d);
+}
+
+.statNumber {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #586069);
+  text-transform: uppercase;
+}
+
+.content {
+  flex: 1;
+}
+
+.content h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.content h2 a {
+  color: var(--link-color, #0070f3);
+  text-decoration: none;
+}
+
+.content h2 a:hover {
+  text-decoration: underline;
+}
+
+.excerpt {
+  margin: 0 0 1rem 0;
+  color: var(--text-secondary, #586069);
+  line-height: 1.6;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  background: var(--tag-bg, #e1ecf7);
+  color: var(--tag-color, #0969da);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.tag:hover {
+  background: var(--tag-hover, #c5d7ed);
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary, #586069);
+}
+
+.authorName {
+  font-weight: 600;
+  color: var(--text-primary, #24292e);
+}
+
+.rank {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.points {
+  font-weight: 500;
+}
+
+.time {
+  font-style: italic;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color, #e1e4e8);
+}
+
+.paginationButton {
+  padding: 0.5rem 1rem;
+  background: var(--primary-color, #0070f3);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.paginationButton:hover {
+  background: var(--primary-hover, #0051cc);
+}
+
+.paginationInfo {
+  font-weight: 600;
+  color: var(--text-primary, #24292e);
+}
+
+@media (max-width: 768px) {
+  .questionCard {
+    flex-direction: column;
+  }
+
+  .questionCard .stats {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
